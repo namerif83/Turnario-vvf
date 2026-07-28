@@ -6,34 +6,50 @@
 <div class='card'><h3>Residui</h3><div class='grid'><div><div class='small'>Ferie</div><div class='stat' id='vacLeft'>0</div></div><div><div class='small'>Congedo 100%</div><div class='stat' id='p100Left'>0</div></div><div><div class='small'>Congedo 80%</div><div class='stat' id='p80Left'>0</div></div><div><div class='small'>Buoni mancanti</div><div class='stat' id='mealMissing'>0</div></div></div></div></section>
 <section id='calendar' class='page hidden'><div class='card'><h3>Aggiungi giornata</h3><label>Data</label><input type='date' id='entryDate'><label>Tipo</label><select id='entryType'><option>Ferie</option><option>Congedo 100%</option><option>Congedo 80%</option><option>Vigilanza</option><option>Salto turno</option><option>Turno diurno</option><option>Turno notturno</option><option>Riposo</option></select><label>Note</label><input id='entryNote' placeholder='Facoltativo'><button class='btn' style='margin-top:10px;width:100%' onclick='addEntry()'>Salva</button></div><div class='card'><h3>Prossimi giorni</h3><div id='daysList'></div></div></section>
 <section id='counts' class='page hidden'><div class='card'><h3>Disponibilità iniziali</h3><label>Ferie</label><input type='number' id='vacTotal'><label>Congedo parentale 100%</label><input type='number' id='p100Total'><label>Congedo parentale 80%</label><input type='number' id='p80Total'><button class='btn' style='margin-top:10px;width:100%' onclick='saveTotals()'>Aggiorna residui</button></div><div class='card'><h3>Buoni pasto</h3><div class='grid'><button class='btn alt' onclick='meal("maturato")'>+ Maturato</button><button class='btn alt' onclick='meal("ricevuto")'>+ Ricevuto</button></div><p class='small' id='mealSummary'></p></div><div class='card'><h3>Vigilanze</h3><label>Data</label><input type='date' id='vigDate'><label>Ore</label><input type='number' id='vigHours' step='0.5'><label>Note</label><input id='vigNote'><button class='btn' style='margin-top:10px;width:100%' onclick='addVigilanza()'>Aggiungi vigilanza</button><div id='vigList'></div></div></section>
-<section id='settings' class='page hidden'><div class='card'><h3>Turnario perpetuo</h3><label>Turno di appartenenza</label><select id='team'><option>A</option><option>B</option><option>C</option><option>D</option></select><label>Data di riferimento di un turno diurno</label><input type='date' id='anchor'><label>Numero del ciclo in quella data</label><select id='anchorCycle'><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option><option value='4'>4</option><option value='5'>5</option><option value='6'>6</option><option value='7'>7</option><option value='8'>8</option></select><label>Numero del salto turno perpetuo</label><select id='skipNumber'><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option><option value='4'>4</option><option value='5'>5</option><option value='6'>6</option><option value='7'>7</option><option value='8'>8</option></select><p class='small'>Il salto vale automaticamente per il diurno e il notturno del numero scelto.</p><button class='btn' style='margin-top:10px;width:100%' onclick='saveSettings()'>Salva turnario</button></div><div class='card'><h3>Sede GPS</h3><p class='small'>Raggio fisso: 200 metri.</p><button class='btn' style='width:100%' onclick='saveCurrentLocation()'>Imposta questa posizione come sede</button><p class='small' id='coords'></p></div><div class='card'><h3>Backup</h3><div class='grid'><button class='btn alt' onclick='exportData()'>Esporta backup</button><label class='btn alt' style='text-align:center'>Importa<input type='file' accept='application/json' onchange='importData(event)' style='display:none'></label></div></div></section>
+<section id='settings' class='page hidden'><div class='card'><h3>Turnario perpetuo</h3><label>Turno di appartenenza</label><select id='team'><option>A</option><option>B</option><option>C</option><option>D</option></select><label>Numero del salto turno perpetuo</label><select id='skipNumber'><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option><option value='4'>4</option><option value='5'>5</option><option value='6'>6</option><option value='7'>7</option><option value='8'>8</option></select><p class='small'>Il calendario segue automaticamente la sequenza ufficiale A1–D8. Il salto vale per il diurno e per il notturno del numero scelto.</p><button class='btn' style='margin-top:10px;width:100%' onclick='saveSettings()'>Salva turnario</button></div><div class='card'><h3>Sede GPS</h3><p class='small'>Raggio fisso: 200 metri.</p><button class='btn' style='width:100%' onclick='saveCurrentLocation()'>Imposta questa posizione come sede</button><p class='small' id='coords'></p></div><div class='card'><h3>Backup</h3><div class='grid'><button class='btn alt' onclick='exportData()'>Esporta backup</button><label class='btn alt' style='text-align:center'>Importa<input type='file' accept='application/json' onchange='importData(event)' style='display:none'></label></div></div></section>
 </main><nav class='tabs'><button class='active' onclick='showPage("home",this)'>Oggi</button><button onclick='showPage("calendar",this)'>Calendario</button><button onclick='showPage("counts",this)'>Contatori</button><button onclick='showPage("settings",this)'>Impostazioni</button></nav>
 <script>
-const KEY='turnarioVVF_v1';
-const defaults={settings:{team:'C',anchor:'2026-08-02',anchorCycle:3,skipNumber:6,radius:200},totals:{vac:0,p100:0,p80:0},entries:[],meals:{maturato:0,ricevuto:0},vig:[],stamps:[],intervention:false};
-let db=JSON.parse(localStorage.getItem(KEY)||'null')||structuredClone(defaults);
+const KEY='turnarioVVF_v2';
+const defaults={settings:{team:'C',skipNumber:6,radius:200},totals:{vac:0,p100:0,p80:0},entries:[],meals:{maturato:0,ricevuto:0},vig:[],stamps:[],intervention:false};
+let db=JSON.parse(localStorage.getItem(KEY)||'null');
+if(!db){
+  const old=JSON.parse(localStorage.getItem('turnarioVVF_v1')||'null');
+  db=old||structuredClone(defaults);
+}
 db.settings={...defaults.settings,...(db.settings||{})};
-// Migrazione dalla prima versione: usa il riferimento reale mostrato dall'utente.
-if(db.settings.anchorCycle==null) db.settings.anchorCycle=3;
-if(db.settings.skipNumber==null) db.settings.skipNumber=6;
-if(!db.settings.anchor) db.settings.anchor='2026-08-02';
-if(!db.settings.team) db.settings.team='C';
 function save(){localStorage.setItem(KEY,JSON.stringify(db));render()}
 function fmt(d){return new Date(d+'T12:00:00').toLocaleDateString('it-IT',{weekday:'short',day:'2-digit',month:'2-digit'})}
-function dayDiff(a,b){return Math.floor((new Date(b+'T12:00:00')-new Date(a+'T12:00:00'))/86400000)}
+function dayDiff(a,b){return Math.round((new Date(b+'T12:00:00')-new Date(a+'T12:00:00'))/86400000)}
+const LETTERS=['A','B','C','D'];
+function mod(n,m){return ((n%m)+m)%m}
+function codeFromIndex(index){
+  const i=mod(index,32);
+  return {letter:LETTERS[i%4],cycle:Math.floor(i/4)+1};
+}
+// Calendario fornito dall'utente: 1 gennaio 2026 = B6 diurno; A6 notturno.
+const CALENDAR_ANCHOR='2026-01-01';
+const ANCHOR_DAY_INDEX=21; // B6 nella sequenza A1,B1,C1,D1...A8,B8,C8,D8
 function cycleInfo(date){
-  const diff=dayDiff(db.settings.anchor,date);
-  const block=Math.floor(diff/4);
-  const pos=((diff%4)+4)%4;
-  const cycle=((Number(db.settings.anchorCycle)-1+block)%8+8)%8+1;
-  const phase=['Diurno','Notturno','Smontante','Riposo'][pos];
-  return {cycle,phase,label:`${db.settings.team}${cycle}`};
+  const dayIndex=ANCHOR_DAY_INDEX+dayDiff(CALENDAR_ANCHOR,date);
+  const dayCode=codeFromIndex(dayIndex);
+  const nightCode=codeFromIndex(dayIndex-1);
+  const team=db.settings.team;
+  let phase='Riposo', code=null;
+  if(dayCode.letter===team){phase='Diurno';code=dayCode;}
+  else if(nightCode.letter===team){phase='Notturno';code=nightCode;}
+  else {
+    const teamPos=LETTERS.indexOf(team);
+    const dayPos=LETTERS.indexOf(dayCode.letter);
+    const rel=mod(dayPos-teamPos,4);
+    phase=rel===2?'Smontante':'Riposo';
+  }
+  return {phase,cycle:code?code.cycle:null,label:code?`${code.letter}${code.cycle}`:'',dayCode,nightCode};
 }
 function isSkip(date){const i=cycleInfo(date);return i.cycle===Number(db.settings.skipNumber)&&(i.phase==='Diurno'||i.phase==='Notturno')}
-function baseShift(date){const i=cycleInfo(date);return `${i.label} · ${i.phase}`}
-function effective(date){let manual=db.entries.filter(e=>e.date===date).slice(-1)[0];if(manual)return manual.type;const i=cycleInfo(date);return isSkip(date)?`${i.label} · Salto turno ${i.phase.toLowerCase()}`:`${i.label} · ${i.phase}`}
+function baseShift(date){const i=cycleInfo(date);return i.label?`${i.label} · ${i.phase}`:i.phase}
+function effective(date){let manual=db.entries.filter(e=>e.date===date).slice(-1)[0];if(manual)return manual.type;const i=cycleInfo(date);if(isSkip(date))return `${i.label} · Salto turno ${i.phase.toLowerCase()}`;return i.label?`${i.label} · ${i.phase}`:i.phase}
 function used(type){return db.entries.filter(e=>e.type===type).length}
-function render(){let t=new Date().toISOString().slice(0,10);todayLabel.textContent=new Date().toLocaleDateString('it-IT',{weekday:'long',day:'numeric',month:'long',year:'numeric'});todayShift.textContent=effective(t);gpsState.textContent=db.settings.lat?'Sede GPS attiva':'Sede non impostata';coords.textContent=db.settings.lat?`Lat ${db.settings.lat.toFixed(5)} · Lon ${db.settings.lon.toFixed(5)} · raggio 200 m`:'';vacLeft.textContent=db.totals.vac-used('Ferie');p100Left.textContent=db.totals.p100-used('Congedo 100%');p80Left.textContent=db.totals.p80-used('Congedo 80%');mealMissing.textContent=db.meals.maturato-db.meals.ricevuto;mealSummary.textContent=`Maturati ${db.meals.maturato} · Ricevuti ${db.meals.ricevuto} · Mancanti ${db.meals.maturato-db.meals.ricevuto}`;vacTotal.value=db.totals.vac;p100Total.value=db.totals.p100;p80Total.value=db.totals.p80;team.value=db.settings.team;anchor.value=db.settings.anchor;anchorCycle.value=db.settings.anchorCycle;skipNumber.value=db.settings.skipNumber;let h='';for(let i=0;i<21;i++){let d=new Date();d.setDate(d.getDate()+i);let ds=d.toISOString().slice(0,10);h+=`<div class='day row'><div><b>${fmt(ds)}</b><div class='small'>${effective(ds)}</div></div><button class='btn alt' onclick='quickEdit("${ds}")'>Modifica</button></div>`}daysList.innerHTML=h;vigList.innerHTML=db.vig.map(v=>`<div class='day'><b>${fmt(v.date)}</b> · ${v.hours} ore<div class='small'>${v.note||''}</div></div>`).join('');scheduleHint()}
+function render(){let t=new Date().toISOString().slice(0,10);todayLabel.textContent=new Date().toLocaleDateString('it-IT',{weekday:'long',day:'numeric',month:'long',year:'numeric'});todayShift.textContent=effective(t);gpsState.textContent=db.settings.lat?'Sede GPS attiva':'Sede non impostata';coords.textContent=db.settings.lat?`Lat ${db.settings.lat.toFixed(5)} · Lon ${db.settings.lon.toFixed(5)} · raggio 200 m`:'';vacLeft.textContent=db.totals.vac-used('Ferie');p100Left.textContent=db.totals.p100-used('Congedo 100%');p80Left.textContent=db.totals.p80-used('Congedo 80%');mealMissing.textContent=db.meals.maturato-db.meals.ricevuto;mealSummary.textContent=`Maturati ${db.meals.maturato} · Ricevuti ${db.meals.ricevuto} · Mancanti ${db.meals.maturato-db.meals.ricevuto}`;vacTotal.value=db.totals.vac;p100Total.value=db.totals.p100;p80Total.value=db.totals.p80;team.value=db.settings.team;skipNumber.value=db.settings.skipNumber;let h='';for(let i=0;i<21;i++){let d=new Date();d.setDate(d.getDate()+i);let ds=d.toISOString().slice(0,10);h+=`<div class='day row'><div><b>${fmt(ds)}</b><div class='small'>${effective(ds)}</div></div><button class='btn alt' onclick='quickEdit("${ds}")'>Modifica</button></div>`}daysList.innerHTML=h;vigList.innerHTML=db.vig.map(v=>`<div class='day'><b>${fmt(v.date)}</b> · ${v.hours} ore<div class='small'>${v.note||''}</div></div>`).join('');scheduleHint()}
 function scheduleHint(){let ds=new Date().toISOString().slice(0,10),i=cycleInfo(ds),skip=isSkip(ds),manual=db.entries.filter(e=>e.date===ds).slice(-1)[0];let phase=manual?manual.type:i.phase;let txt=!skip&&(phase==='Diurno'||phase==='Turno diurno')?'Promemoria: 07:30 entrata · 20:01 uscita':!skip&&(phase==='Notturno'||phase==='Turno notturno')?'Promemoria: 19:30 entrata · 08:01 uscita domani':'Nessun promemoria di timbratura previsto';nextReminder.textContent=txt+(db.intervention?' · Intervento in corso':'')}
 function showPage(id,b){document.querySelectorAll('.page').forEach(x=>x.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('active'));b.classList.add('active')}
 function addEntry(){if(!entryDate.value)return alert('Inserisci la data');db.entries.push({date:entryDate.value,type:entryType.value,note:entryNote.value});save();entryNote.value=''}
@@ -41,7 +57,7 @@ function quickEdit(d){entryDate.value=d;showPage('calendar',document.querySelect
 function saveTotals(){db.totals={vac:+vacTotal.value||0,p100:+p100Total.value||0,p80:+p80Total.value||0};save()}
 function meal(k){db.meals[k]++;save()}
 function addVigilanza(){if(!vigDate.value)return alert('Inserisci la data');db.vig.push({date:vigDate.value,hours:+vigHours.value||0,note:vigNote.value});save();vigHours.value='';vigNote.value=''}
-function saveSettings(){if(!anchor.value)return alert('Inserisci la data di riferimento');db.settings.team=team.value;db.settings.anchor=anchor.value;db.settings.anchorCycle=+anchorCycle.value;db.settings.skipNumber=+skipNumber.value;save();alert('Turnario perpetuo aggiornato')}
+function saveSettings(){db.settings.team=team.value;db.settings.skipNumber=+skipNumber.value;save();alert('Turnario perpetuo aggiornato')}
 function confirmStamp(kind){db.stamps.push({kind,at:new Date().toISOString()});if(kind==='uscita')db.intervention=false;save();alert(`Timbratura ${kind} confermata`)}
 function setIntervention(v){db.intervention=v;save();if(v)startGeoWatch()}
 function saveCurrentLocation(){if(!navigator.geolocation)return alert('GPS non disponibile');navigator.geolocation.getCurrentPosition(p=>{db.settings.lat=p.coords.latitude;db.settings.lon=p.coords.longitude;db.settings.radius=200;save();alert('Sede aggiornata con raggio di 200 metri')},e=>alert('Posizione non disponibile: '+e.message),{enableHighAccuracy:true})}
