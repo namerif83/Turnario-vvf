@@ -1,25 +1,26 @@
 <!doctype html><html lang='it'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1,viewport-fit=cover'><meta name='theme-color' content='#b30000'><link rel='manifest' href='manifest.json'><link rel='apple-touch-icon' href='icon.svg'><title>Turnario VVF</title><style>
-:root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#1b1b1b;background:#f3f4f6}*{box-sizing:border-box}html,body{margin:0;width:100%;max-width:100%;overflow-x:hidden}body{min-height:100vh}header{background:#b30000;color:#fff;padding:14px 16px 12px;position:sticky;top:0;z-index:5;width:100%}header h1{margin:0;font-size:22px}.sub{font-size:13px;opacity:.9}.wrap{padding:8px;width:100%;max-width:760px;margin:0 auto}.card{background:#fff;border-radius:14px;padding:12px;margin:8px 0;box-shadow:0 2px 12px #0001;width:100%}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.btn{border:0;border-radius:12px;padding:12px;font-weight:700;background:#b30000;color:#fff}.btn.alt{background:#eee;color:#222}.btn.ok{background:#167c3a}.btn.warn{background:#cc7a00}input,select{width:100%;box-sizing:border-box;padding:10px;border:1px solid #ccc;border-radius:10px;background:#fff}label{display:block;font-size:12px;margin:8px 0 4px;color:#555}.stat{font-size:24px;font-weight:800}.row{display:flex;gap:8px;align-items:center;justify-content:space-between}.small{font-size:12px;color:#666}.pill{padding:5px 8px;border-radius:999px;background:#eee;font-size:12px}.hidden{display:none}.day{border-bottom:1px solid #eee;padding:10px 0}.danger{color:#a00000}.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;position:sticky;bottom:0;background:#f3f4f6;padding:8px}.tabs button{padding:10px 4px;border:0;border-radius:10px;background:#ddd}.tabs button.active{background:#b30000;color:#fff}
+:root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#1b1b1b;background:#f3f4f6}*{box-sizing:border-box}html,body{margin:0;width:100%;max-width:100%;overflow-x:hidden}body{min-height:100vh}header{background:#b30000;color:#fff;padding:14px 16px 12px;position:sticky;top:0;z-index:5;width:100%}header h1{margin:0;font-size:22px}.sub{font-size:13px;opacity:.9}.wrap{padding:8px;width:100%;max-width:760px;margin:0 auto}.card{background:#fff;border-radius:14px;padding:12px;margin:8px 0;box-shadow:0 2px 12px #0001;width:100%}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.btn{border:0;border-radius:12px;padding:12px;font-weight:700;background:#b30000;color:#fff}.btn.alt{background:#eee;color:#222}.btn.ok{background:#167c3a}.btn.warn{background:#cc7a00}input,select{width:100%;box-sizing:border-box;padding:10px;border:1px solid #ccc;border-radius:10px;background:#fff}label{display:block;font-size:12px;margin:8px 0 4px;color:#555}.stat{font-size:24px;font-weight:800}.row{display:flex;gap:8px;align-items:center;justify-content:space-between}.small{font-size:12px;color:#666}.pill{padding:5px 8px;border-radius:999px;background:#eee;font-size:12px}.hidden{display:none}.day{border-bottom:1px solid #eee;padding:10px 0}.danger{color:#a00000}.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;position:sticky;bottom:0;background:#f3f4f6;padding:8px}.tabs button{padding:10px 4px;border:0;border-radius:10px;background:#ddd}.tabs button.active{background:#b30000;color:#fff}
 .toast{position:fixed;left:50%;bottom:78px;transform:translateX(-50%) translateY(20px);background:#167c3a;color:#fff;padding:12px 16px;border-radius:12px;font-weight:800;box-shadow:0 8px 24px #0004;opacity:0;pointer-events:none;transition:.25s;z-index:50;max-width:calc(100% - 24px);text-align:center}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
-.month-head{display:grid;grid-template-columns:44px 1fr 44px;align-items:center;gap:6px;margin-bottom:8px}.month-title{text-align:center;font-size:20px;font-weight:800}.month-nav{border:0;border-radius:10px;padding:10px;background:#eee;font-size:20px;font-weight:800}.weekdays,.month-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px}.weekdays div{text-align:center;font-size:11px;font-weight:800;padding:4px 0}.cal-day{min-width:0;height:72px;border:0;border-radius:9px;background:#f0f1f4;padding:4px;text-align:left;position:relative;overflow:hidden}.cal-day.empty{background:transparent}.cal-day.today{outline:2px solid #b30000}.cal-day .num{font-weight:800;font-size:14px}.cal-day .shift{display:block;margin-top:8px;border-radius:6px;padding:3px 2px;font-size:10px;font-weight:800;line-height:1.1;text-align:center;white-space:normal}.shift.day{background:#ffe681}.shift.night{background:#8fc2ff}.shift.skip{background:#3d9133;color:#fff}.shift.event{background:#ece2ff}.event-dot{position:absolute;right:4px;top:4px;width:7px;height:7px;border-radius:50%;background:#b30000}.editor-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.entry-list{margin-top:10px}.entry-item{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:8px 0;border-top:1px solid #eee}.entry-item button{border:0;border-radius:8px;padding:7px 9px;background:#eee}.editor-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}@media(max-width:420px){.wrap{padding:5px}.card{padding:8px;border-radius:11px}.cal-day{height:64px;padding:3px}.cal-day .num{font-size:13px}.cal-day .shift{font-size:9px;margin-top:6px}.tabs{gap:3px;padding:5px}.tabs button{font-size:11px;padding:9px 2px}}
+.month-head{display:grid;grid-template-columns:44px 1fr 44px;align-items:center;gap:6px;margin-bottom:8px}.month-title{text-align:center;font-size:20px;font-weight:800}.month-nav{border:0;border-radius:10px;padding:10px;background:#eee;font-size:20px;font-weight:800}.weekdays,.month-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px}.weekdays div{text-align:center;font-size:11px;font-weight:800;padding:4px 0}.cal-day{min-width:0;height:72px;border:0;border-radius:9px;background:#f0f1f4;padding:4px;text-align:left;position:relative;overflow:hidden}.cal-day.empty{background:transparent}.cal-day.today{outline:2px solid #b30000}.cal-day .num{font-weight:800;font-size:14px}.cal-day .shift{display:block;margin-top:8px;border-radius:6px;padding:3px 2px;font-size:10px;font-weight:800;line-height:1.1;text-align:center;white-space:normal}.shift.day{background:#ffe681}.shift.night{background:#8fc2ff}.shift.skip{background:#3d9133;color:#fff}.shift.event{background:#ece2ff}.event-icons{position:absolute;right:3px;top:3px;display:flex;gap:1px;align-items:center;max-width:calc(100% - 24px);overflow:hidden}.event-icon{font-size:12px;line-height:1}.event-more{font-size:9px;font-weight:800;background:#fff;border-radius:8px;padding:1px 3px;color:#555}.editor-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.entry-list{margin-top:10px}.entry-item{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:8px 0;border-top:1px solid #eee}.entry-item button{border:0;border-radius:8px;padding:7px 9px;background:#eee}.archive-title{margin-top:14px;font-weight:800}.archive-month{border-top:1px solid #eee;padding:8px 0}.archive-month summary{cursor:pointer;font-weight:800;padding:5px 0}.month-empty{padding:8px 0;color:#666;font-size:12px}.editor-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}@media(max-width:420px){.wrap{padding:5px}.card{padding:8px;border-radius:11px}.cal-day{height:64px;padding:3px}.cal-day .num{font-size:13px}.cal-day .shift{font-size:9px;margin-top:6px}.tabs{gap:3px;padding:5px}.tabs button{font-size:11px;padding:9px 2px}}
 </style></head><body><header><h1>Turnario VVF</h1><div class='sub' id='todayLabel'></div></header><main class='wrap'>
-<section id='home' class='page'><div class='card'><div class='row'><div><div class='small'>Servizio di oggi</div><div id='todayShift' class='stat'>—</div></div><span id='gpsState' class='pill'>Sede non impostata</span></div><div id='nextReminder' class='small' style='margin-top:8px'></div></div>
+<section id='home' class='page'><div class='card'><div class='month-head'><button class='month-nav' onclick='changeMonth(-1)'>‹</button><div class='month-title' id='monthTitle'></div><button class='month-nav' onclick='changeMonth(1)'>›</button></div><div class='weekdays'><div>Lun</div><div>Mar</div><div>Mer</div><div>Gio</div><div>Ven</div><div>Sab</div><div>Dom</div></div><div id='monthGrid' class='month-grid'></div><p class='small' style='margin:8px 2px 0'>Sono evidenziati soltanto i servizi del turno selezionato. Tocca una data per inserire ferie, congedi, buono pasto, vigilanze, straordinario o cambio salto.</p></div><div class='card hidden' id='dayEditor'><h3 id='editorTitle'>Modifica giornata</h3><input type='hidden' id='entryDate'><label>Voce da aggiungere</label><select id='entryType' onchange='toggleEntryFields()'><option value=''>Seleziona</option><option>Ferie</option><option>Congedo 100%</option><option>Congedo 80%</option><option>Buono pasto</option><option>Vigilanza</option><option>Straordinario</option><option>Cambio salto</option></select><div id='timeFields' class='hidden'><label>Orario di fine lavoro/rientro</label><input type='time' id='entryEndTime'></div><label>Note</label><input id='entryNote' placeholder='Facoltativo'><div class='editor-actions'><button class='btn' onclick='saveDayEntry()'>Aggiungi</button><button class='btn alt' onclick='closeDayEditor()'>Chiudi</button></div><div id='dayEntryList' class='entry-list'></div></div><div class='card'><div class='row'><div><div class='small'>Servizio di oggi</div><div id='todayShift' class='stat'>—</div></div><span id='gpsState' class='pill'>Sede non impostata</span></div><div id='nextReminder' class='small' style='margin-top:8px'></div></div>
 <div class='grid'><button class='btn ok' onclick='confirmStamp("entrata")'>Ho timbrato entrata</button><button class='btn ok' onclick='confirmStamp("uscita")'>Ho timbrato uscita</button><button class='btn warn' onclick='setIntervention(true)'>Sono fuori per intervento</button><button class='btn alt' onclick='setIntervention(false)'>Sono rientrato</button></div>
-<div class='card'><h3>Residui</h3><div class='grid'><div><div class='small'>Ferie</div><div class='stat' id='vacLeft'>0</div></div><div><div class='small'>Congedo 100%</div><div class='stat' id='p100Left'>0</div></div><div><div class='small'>Congedo 80%</div><div class='stat' id='p80Left'>0</div></div><div><div class='small'>Buoni mancanti</div><div class='stat' id='mealMissing'>0</div></div></div></div></section>
-<section id='calendar' class='page hidden'><div class='card'><div class='month-head'><button class='month-nav' onclick='changeMonth(-1)'>‹</button><div class='month-title' id='monthTitle'></div><button class='month-nav' onclick='changeMonth(1)'>›</button></div><div class='weekdays'><div>Lun</div><div>Mar</div><div>Mer</div><div>Gio</div><div>Ven</div><div>Sab</div><div>Dom</div></div><div id='monthGrid' class='month-grid'></div><p class='small' style='margin:8px 2px 0'>Sono evidenziati soltanto i servizi del turno selezionato. Tocca una data per inserire ferie, congedi, buoni pasto, vigilanze, straordinario o modifiche al turno.</p></div><div class='card hidden' id='dayEditor'><h3 id='editorTitle'>Modifica giornata</h3><input type='hidden' id='entryDate'><label>Voce da aggiungere</label><select id='entryType' onchange='toggleEntryFields()'><option value=''>Seleziona</option><option>Ferie</option><option>Congedo 100%</option><option>Congedo 80%</option><option>Buono pasto maturato</option><option>Buono pasto ricevuto</option><option>Vigilanza</option><option>Straordinario</option><option>Salto turno</option><option>Turno diurno</option><option>Turno notturno</option></select><div id='timeFields' class='hidden'><label>Orario di fine lavoro/rientro</label><input type='time' id='entryEndTime'></div><label>Note</label><input id='entryNote' placeholder='Facoltativo'><div class='editor-actions'><button class='btn' onclick='saveDayEntry()'>Aggiungi</button><button class='btn alt' onclick='closeDayEditor()'>Chiudi</button></div><div id='dayEntryList' class='entry-list'></div></div></section>
-<section id='counts' class='page hidden'><div class='card'><h3>Disponibilità iniziali</h3><label>Ferie</label><input type='number' id='vacTotal'><label>Congedo parentale 100%</label><input type='number' id='p100Total'><label>Congedo parentale 80%</label><input type='number' id='p80Total'><button class='btn' style='margin-top:10px;width:100%' onclick='saveTotals()'>Aggiorna residui</button></div><div class='card'><h3>Buoni pasto</h3><p class='small' id='mealSummary'></p><div id='mealList'></div></div><div class='card'><h3>Straordinario</h3><p class='small'>Giorni e orari di fine lavoro inseriti dal calendario.</p><div id='overtimeList'></div></div><div class='card'><h3>Vigilanze</h3><div id='vigList'></div></div></section>
+<div class='card'><h3>Residui</h3><div class='grid'><div><div class='small'>Ferie</div><div class='stat' id='vacLeft'>0</div></div><div><div class='small'>Congedo 100%</div><div class='stat' id='p100Left'>0</div></div><div><div class='small'>Congedo 80%</div><div class='stat' id='p80Left'>0</div></div><div><div class='small'>Buoni pasto</div><div class='stat' id='mealMissing'>0</div></div></div></div></section>
+
+<section id='counts' class='page hidden'><div class='card'><h3>Disponibilità iniziali</h3><label>Ferie</label><input type='number' id='vacTotal'><label>Congedo parentale 100%</label><input type='number' id='p100Total'><label>Congedo parentale 80%</label><input type='number' id='p80Total'><button class='btn' style='margin-top:10px;width:100%' onclick='saveTotals()'>Aggiorna residui</button></div><div class='card'><h3>Buoni pasto · mese corrente</h3><p class='small' id='mealSummary'></p><div id='mealList'></div><div id='mealArchive'></div></div><div class='card'><h3>Straordinario · mese corrente</h3><p class='small'>Giorni e orari di fine lavoro inseriti dal calendario.</p><div id='overtimeList'></div><div id='overtimeArchive'></div></div><div class='card'><h3>Vigilanze</h3><div id='vigList'></div></div></section>
 <section id='settings' class='page hidden'><div class='card'><h3>Turnario perpetuo</h3><label>Turno di appartenenza</label><select id='team'><option>A</option><option>B</option><option>C</option><option>D</option></select><label>Numero del salto turno perpetuo</label><select id='skipNumber'><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option><option value='4'>4</option><option value='5'>5</option><option value='6'>6</option><option value='7'>7</option><option value='8'>8</option></select><p class='small'>Il calendario segue automaticamente la sequenza ufficiale A1–D8. Il salto vale per il diurno e per il notturno del numero scelto.</p><button class='btn' style='margin-top:10px;width:100%' onclick='saveSettings()'>Salva turnario</button></div><div class='card'><h3>Notifiche</h3><p class='small' id='notificationState'>Permesso notifiche non verificato.</p><button class='btn' style='width:100%' onclick='enableNotifications()'>Attiva e prova notifiche</button></div><div class='card'><h3>Sede GPS</h3><p class='small'>Raggio fisso: 200 metri.</p><button class='btn' style='width:100%' onclick='saveCurrentLocation()'>Imposta questa posizione come sede</button><p class='small' id='coords'></p></div><div class='card'><h3>Backup</h3><div class='grid'><button class='btn alt' onclick='exportData()'>Esporta backup</button><label class='btn alt' style='text-align:center'>Importa<input type='file' accept='application/json' onchange='importData(event)' style='display:none'></label></div></div></section>
-</main><div id='toast' class='toast' role='status' aria-live='polite'></div><nav class='tabs'><button class='active' onclick='showPage("home",this)'>Oggi</button><button onclick='showPage("calendar",this)'>Calendario</button><button onclick='showPage("counts",this)'>Contatori</button><button onclick='showPage("settings",this)'>Impostazioni</button></nav>
+</main><div id='toast' class='toast' role='status' aria-live='polite'></div><nav class='tabs'><button class='active' onclick='showPage("home",this)'>Calendario</button><button onclick='showPage("counts",this)'>Contatori</button><button onclick='showPage("settings",this)'>Impostazioni</button></nav>
 <script>
-const KEY='turnarioVVF_v3';
+const KEY='turnarioVVF_v4';
 const defaults={settings:{team:'C',skipNumber:6,radius:200},totals:{vac:0,p100:0,p80:0},entries:[],meals:{maturato:0,ricevuto:0},vig:[],stamps:[],intervention:false};
 let db=JSON.parse(localStorage.getItem(KEY)||'null');
 if(!db){
-  const old=JSON.parse(localStorage.getItem('turnarioVVF_v2')||localStorage.getItem('turnarioVVF_v1')||'null');
+  const old=JSON.parse(localStorage.getItem('turnarioVVF_v3')||localStorage.getItem('turnarioVVF_v2')||localStorage.getItem('turnarioVVF_v1')||'null');
   db=old||structuredClone(defaults);
 }
 db.entries=db.entries||[]; db.meals=db.meals||{maturato:0,ricevuto:0}; db.vig=db.vig||[];
+db.entries=db.entries.map(e=>({...e,type:isMealType(e.type)?'Buono pasto':e.type==='Salto turno'?'Cambio salto':e.type}));
 db.settings={...defaults.settings,...(db.settings||{})};
 let viewMonth=new Date();viewMonth.setDate(1);
 function save(){localStorage.setItem(KEY,JSON.stringify(db));render()}
@@ -52,7 +53,26 @@ function cycleInfo(date){
 }
 function isSkip(date){const i=cycleInfo(date);return i.cycle===Number(db.settings.skipNumber)&&(i.phase==='Diurno'||i.phase==='Notturno')}
 function baseShift(date){const i=cycleInfo(date);return i.label?`${i.label} · ${i.phase}`:i.phase}
-function effective(date){let manual=db.entries.filter(e=>e.date===date&&!['Buono pasto maturato','Buono pasto ricevuto','Straordinario','Vigilanza'].includes(e.type)).slice(-1)[0];if(manual)return manual.type;const i=cycleInfo(date);if(isSkip(date))return `${i.label} · Salto turno ${i.phase.toLowerCase()}`;return i.label?`${i.label} · ${i.phase}`:i.phase}
+function isMealType(type){return ['Buono pasto','Buono pasto maturato','Buono pasto ricevuto'].includes(type)}
+function isOverlayType(type){return isMealType(type)||['Straordinario','Vigilanza','Cambio salto'].includes(type)}
+function eventIcon(type){
+  if(type==='Ferie')return '🏖️';
+  if(type.startsWith('Congedo'))return '👶';
+  if(isMealType(type))return '🍽️';
+  if(type==='Vigilanza')return '🚒';
+  if(type==='Straordinario')return '🕒';
+  if(type==='Cambio salto')return '🔄';
+  if(type==='Malattia')return '🌡️';
+  if(type==='Permesso')return '📄';
+  return '📌';
+}
+function iconsHtml(events){
+  if(!events.length)return '';
+  const icons=events.slice(0,3).map(e=>`<span class='event-icon' title='${e.type}'>${eventIcon(e.type)}</span>`).join('');
+  const more=events.length>3?`<span class='event-more'>+${events.length-3}</span>`:'';
+  return `<span class='event-icons'>${icons}${more}</span>`;
+}
+function effective(date){let manual=db.entries.filter(e=>e.date===date&&!isOverlayType(e.type)).slice(-1)[0];if(manual)return manual.type;const i=cycleInfo(date);if(isSkip(date))return `${i.label} · Salto turno ${i.phase.toLowerCase()}`;return i.label?`${i.label} · ${i.phase}`:i.phase}
 function used(type){return db.entries.filter(e=>e.type===type).length}
 function render(){
   let t=new Date().toISOString().slice(0,10);
@@ -61,14 +81,12 @@ function render(){
   gpsState.textContent=db.settings.lat?'Sede GPS attiva':'Sede non impostata';
   coords.textContent=db.settings.lat?`Lat ${db.settings.lat.toFixed(5)} · Lon ${db.settings.lon.toFixed(5)} · raggio 200 m`:'';
   vacLeft.textContent=db.totals.vac-used('Ferie'); p100Left.textContent=db.totals.p100-used('Congedo 100%'); p80Left.textContent=db.totals.p80-used('Congedo 80%');
-  const mealEntries=db.entries.filter(e=>e.type==='Buono pasto maturato'||e.type==='Buono pasto ricevuto');
-  const matured=db.meals.maturato+mealEntries.filter(e=>e.type==='Buono pasto maturato').length;
-  const received=db.meals.ricevuto+mealEntries.filter(e=>e.type==='Buono pasto ricevuto').length;
-  mealMissing.textContent=matured-received;
-  mealSummary.textContent=`Maturati ${matured} · Ricevuti ${received} · Mancanti ${matured-received}`;
-  mealList.innerHTML=mealEntries.slice().sort((a,b)=>b.date.localeCompare(a.date)).map(e=>`<div class='day'><b>${fmt(e.date)}</b> · ${e.type.replace('Buono pasto ','')}<div class='small'>${e.note||''}</div></div>`).join('')||`<p class='small'>Nessun buono inserito.</p>`;
+  const mealEntries=db.entries.filter(e=>isMealType(e.type));
+  const matured=mealEntries.length;
+  const received=0;
+  mealMissing.textContent=matured;
+  renderMonthlyArchives(mealEntries, db.entries.filter(e=>e.type==='Straordinario'));
   const overtime=db.entries.filter(e=>e.type==='Straordinario').slice().sort((a,b)=>b.date.localeCompare(a.date));
-  overtimeList.innerHTML=overtime.map(e=>`<div class='day'><b>${fmt(e.date)}</b> · fine lavoro <b>${e.endTime||'—'}</b><div class='small'>${e.note||''}</div></div>`).join('')||`<p class='small'>Nessuno straordinario inserito.</p>`;
   vacTotal.value=db.totals.vac; p100Total.value=db.totals.p100; p80Total.value=db.totals.p80; team.value=db.settings.team; skipNumber.value=db.settings.skipNumber;
   renderMonth();
   const vigEntries=[...db.vig.map(v=>({date:v.date,hours:v.hours,note:v.note,legacy:true})),...db.entries.filter(e=>e.type==='Vigilanza')].sort((a,b)=>b.date.localeCompare(a.date));
@@ -76,10 +94,66 @@ function render(){
   scheduleHint();
   if(typeof notificationState!=='undefined'&&'Notification' in window){notificationState.textContent=Notification.permission==='granted'?'Notifiche attive.':Notification.permission==='denied'?'Notifiche bloccate nelle impostazioni del dispositivo.':'Premi il pulsante per autorizzare le notifiche.'}
 }
-function scheduleHint(){let ds=new Date().toISOString().slice(0,10),i=cycleInfo(ds),skip=isSkip(ds),manual=db.entries.filter(e=>e.date===ds&&!['Buono pasto maturato','Buono pasto ricevuto','Straordinario','Vigilanza'].includes(e.type)).slice(-1)[0];let phase=manual?manual.type:i.phase;let txt=!skip&&(phase==='Diurno'||phase==='Turno diurno')?'Promemoria: 07:30 entrata · 20:01 uscita':!skip&&(phase==='Notturno'||phase==='Turno notturno')?'Promemoria: 19:30 entrata · 08:01 uscita domani':'Nessun promemoria di timbratura previsto';nextReminder.textContent=txt+(db.intervention?' · Intervento in corso':'')}
+
+function monthKey(date){return date.slice(0,7)}
+function monthName(key){const [y,m]=key.split('-').map(Number);return new Date(y,m-1,1).toLocaleDateString('it-IT',{month:'long',year:'numeric'})}
+function itemHtml(e,kind){
+  if(kind==='meal')return `<div class='day'><b>${fmt(e.date)}</b> · Buono pasto<div class='small'>${e.note||''}</div></div>`;
+  return `<div class='day'><b>${fmt(e.date)}</b> · fine lavoro <b>${e.endTime||'—'}</b><div class='small'>${e.note||''}</div></div>`;
+}
+function renderArchive(items,currentKey,kind,target){
+  const previous=items.filter(e=>monthKey(e.date)<currentKey);
+  const future=items.filter(e=>monthKey(e.date)>currentKey);
+  const groups={}; previous.forEach(e=>(groups[monthKey(e.date)]??=[]).push(e));
+  let html='';
+  const keys=Object.keys(groups).sort().reverse();
+  if(keys.length){
+    html+=`<div class='archive-title'>Archivio mesi precedenti</div>`;
+    html+=keys.map(k=>{
+      const list=groups[k].slice().sort((a,b)=>b.date.localeCompare(a.date));
+      let summary='';
+      if(kind==='meal'){
+        const total=list.length;
+        summary=`${monthName(k)} · ${total} buoni pasto`;
+      }else summary=`${monthName(k)} · ${list.length} registrazioni`;
+      return `<details class='archive-month'><summary>${summary}</summary>${list.map(e=>itemHtml(e,kind)).join('')}</details>`;
+    }).join('');
+  }else html+=`<div class='archive-title'>Archivio mesi precedenti</div><div class='month-empty'>Archivio ancora vuoto.</div>`;
+  if(future.length){
+    html+=`<details class='archive-month'><summary>Voci dei mesi successivi · ${future.length}</summary>${future.slice().sort((a,b)=>a.date.localeCompare(b.date)).map(e=>itemHtml(e,kind)).join('')}</details>`;
+  }
+  target.innerHTML=html;
+}
+function renderMonthlyArchives(mealEntries,overtimeEntries){
+  const currentKey=isoLocal(new Date()).slice(0,7);
+  const currentMeals=mealEntries.filter(e=>monthKey(e.date)===currentKey).sort((a,b)=>b.date.localeCompare(a.date));
+  const total=currentMeals.length;
+  mealSummary.textContent=`${monthName(currentKey)} · Totale ${total} buoni pasto`;
+  mealList.innerHTML=currentMeals.map(e=>itemHtml(e,'meal')).join('')||`<p class='small'>Nessun buono inserito nel mese corrente.</p>`;
+  renderArchive(mealEntries,currentKey,'meal',mealArchive);
+  const currentOvertime=overtimeEntries.filter(e=>monthKey(e.date)===currentKey).sort((a,b)=>b.date.localeCompare(a.date));
+  overtimeList.innerHTML=currentOvertime.map(e=>itemHtml(e,'overtime')).join('')||`<p class='small'>Nessuno straordinario inserito nel mese corrente.</p>`;
+  renderArchive(overtimeEntries,currentKey,'overtime',overtimeArchive);
+}
+function scheduleHint(){let ds=new Date().toISOString().slice(0,10),i=cycleInfo(ds),skip=isSkip(ds),manual=db.entries.filter(e=>e.date===ds&&!isOverlayType(e.type)).slice(-1)[0];let phase=manual?manual.type:i.phase;let txt=!skip&&phase==='Diurno'?'Promemoria: 07:30 entrata · 20:01 uscita':!skip&&phase==='Notturno'?'Promemoria: 19:30 entrata · 08:01 uscita domani':'Nessun promemoria di timbratura previsto';nextReminder.textContent=txt+(db.intervention?' · Intervento in corso':'')}
 function showPage(id,b){document.querySelectorAll('.page').forEach(x=>x.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('active'));b.classList.add('active')}
 function isoLocal(d){const y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,'0'),day=String(d.getDate()).padStart(2,'0');return `${y}-${m}-${day}`}
-function renderMonth(){if(!monthGrid)return;const y=viewMonth.getFullYear(),m=viewMonth.getMonth();monthTitle.textContent=viewMonth.toLocaleDateString('it-IT',{month:'long',year:'numeric'});let first=new Date(y,m,1),offset=(first.getDay()+6)%7,last=new Date(y,m+1,0).getDate(),html='';for(let i=0;i<offset;i++)html+=`<div class='cal-day empty'></div>`;const today=isoLocal(new Date());for(let day=1;day<=last;day++){const d=new Date(y,m,day),ds=isoLocal(d),info=cycleInfo(ds),skip=isSkip(ds),events=db.entries.filter(e=>e.date===ds),manual=events.filter(e=>!['Buono pasto maturato','Buono pasto ricevuto','Straordinario','Vigilanza'].includes(e.type)).slice(-1)[0],isService=info.phase==='Diurno'||info.phase==='Notturno';let badge='';if(manual){badge=`<span class='shift event'>${manual.type}</span>`}else if(isService){let cls=skip?'skip':info.phase==='Diurno'?'day':'night';let text=skip?`${info.label} Salto`:`${info.label} ${info.phase==='Diurno'?'D':'N'}`;badge=`<span class='shift ${cls}'>${text}</span>`}html+=`<button class='cal-day ${ds===today?'today':''}' onclick='openDayEditor("${ds}")'><span class='num'>${day}</span>${events.length?'<span class="event-dot"></span>':''}${badge}</button>`}monthGrid.innerHTML=html}
+function renderMonth(){
+  if(!monthGrid)return;
+  const y=viewMonth.getFullYear(),m=viewMonth.getMonth();
+  monthTitle.textContent=viewMonth.toLocaleDateString('it-IT',{month:'long',year:'numeric'});
+  let first=new Date(y,m,1),offset=(first.getDay()+6)%7,last=new Date(y,m+1,0).getDate(),html='';
+  for(let i=0;i<offset;i++)html+=`<div class='cal-day empty'></div>`;
+  const today=isoLocal(new Date());
+  for(let day=1;day<=last;day++){
+    const d=new Date(y,m,day),ds=isoLocal(d),info=cycleInfo(ds),skip=isSkip(ds),events=db.entries.filter(e=>e.date===ds),manual=events.filter(e=>!isOverlayType(e.type)).slice(-1)[0],isService=info.phase==='Diurno'||info.phase==='Notturno';
+    let badge='';
+    if(manual){badge=`<span class='shift event'>${manual.type}</span>`}
+    else if(isService){let cls=skip?'skip':info.phase==='Diurno'?'day':'night';let text=skip?`${info.label} Salto`:`${info.label} ${info.phase==='Diurno'?'D':'N'}`;badge=`<span class='shift ${cls}'>${text}</span>`}
+    html+=`<button class='cal-day ${ds===today?'today':''}' onclick='openDayEditor("${ds}")'><span class='num'>${day}</span>${iconsHtml(events)}${badge}</button>`;
+  }
+  monthGrid.innerHTML=html;
+}
 function changeMonth(delta){viewMonth=new Date(viewMonth.getFullYear(),viewMonth.getMonth()+delta,1);renderMonth();closeDayEditor()}
 function toggleEntryFields(){
   const needsTime=entryType.value==='Straordinario'||entryType.value==='Vigilanza';
